@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shree Khatushyam Textiles</title>
+<style>
+body{margin:0;background:#fff9f2;font-family:Arial,sans-serif;color:#333}
+header{background:#641b31;color:white;text-align:center;padding:25px 10px}
+h1{font-size:23px}header p{color:#ffe2aa}
+main{padding:15px;max-width:900px;margin:auto}
+h2{color:#641b31}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:white;border:1px solid #e8d9ce;border-radius:12px;padding:12px}
+.photo{height:110px;background:#f3e8e5;display:grid;place-items:center;color:#765d60;text-align:center;font-size:13px}
+.name{font-weight:bold;color:#641b31;margin-top:10px}
+.price{font-size:19px;font-weight:bold;margin:8px 0}
+button{background:#641b31;color:white;border:0;padding:10px;border-radius:7px;width:100%}
+input,textarea{width:100%;padding:11px;margin:6px 0 12px;box-sizing:border-box;border:1px solid #ccc;border-radius:7px}
+footer{background:#3d2026;color:white;text-align:center;padding:20px;margin-top:25px}
+</style>
+</head>
+<body>
+<header>
+<h1>SHREE KHATUSHYAM TEXTILES</h1>
+श्री खाटूश्याम टेक्सटाइल्स · उज्जैन
+<p>आपकी पसंद, हमारा भरोसा</p>
+</header>
+<main>
+<h2>हमारा साड़ी कलेक्शन</h2>
+<p>घर बैठे पसंद कीजिए और WhatsApp पर ऑर्डर भेजिए।</p>
+<div class="grid" id="items"></div>
+<h2>आपका ऑर्डर</h2>
+<div id="cart">अभी कार्ट खाली है।</div>
+<h2>ग्राहक की जानकारी</h2>
+<input id="customer" placeholder="आपका नाम">
+<input id="mobile" placeholder="मोबाइल नंबर">
+<textarea id="address" placeholder="पूरा पता"></textarea>
+<button onclick="sendOrder()">WhatsApp पर ऑर्डर भेजें</button>
+</main>
+<footer>
+<b>Shree Khatushyam Textiles</b><br>
+C-214, Vikramaditya Cloth Market, Ujjain<br>
+WhatsApp: 8319729421<br>फोन: 0734-3564691
+</footer>
+<script>
+const products=[
+["Sonakshi",350],["Rajput Work Creation",750],
+["Waves",1099],["Priya",1075],["Kaju Katli",985],
+["Richi Rich",1080],["Circle",985],["Zig Zag",985],
+["Roop Mata",875],["Cycle",1090]
+];
+let cart=[];
+document.getElementById("items").innerHTML=products.map((p,i)=>
+`<div class="card"><div class="photo">उत्पाद की तस्वीर<br>जल्द जोड़ी जाएगी</div>
+<div class="name">${p[0]}</div><div class="price">₹${p[1]}</div>
+<button onclick="add(${i})">कार्ट में जोड़ें</button></div>`).join("");
+function add(i){cart.push(products[i]);document.getElementById("cart").innerHTML=cart.map(p=>p[0]+" - ₹"+p[1]).join("<br>")+"<hr>कुल ₹"+cart.reduce((s,p)=>s+p[1],0)}
+function sendOrder(){
+if(!cart.length){alert("पहले साड़ी चुनें");return}
+let n=document.getElementById("customer").value;
+let m=document.getElementById("mobile").value;
+let a=document.getElementById("address").value;
+if(!n||!m||!a){alert("कृपया पूरी जानकारी भरें");return}
+let msg="नया ऑर्डर%0A"+cart.map(p=>p[0]+" ₹"+p[1]).join("%0A")+"%0Aनाम: "+n+"%0Aमोबाइल: "+m+"%0Aपता: "+a+"%0Aकृपया स्टॉक और शिपिंग की पुष्टि करें।";
+location.href="https://wa.me/918319729421?text="+encodeURIComponent(msg);
+}
+</script>
+</body>
+</html>
